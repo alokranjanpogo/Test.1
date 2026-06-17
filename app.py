@@ -1,8 +1,11 @@
 import streamlit as st
-import os
+from ultralytics import YOLO
 
-st.write("Files in directory:")
-st.write(os.listdir("."))
+st.write("Before loading")
 
-st.write("best.pt exists:")
-st.write(os.path.exists("best.pt"))
+try:
+    model = YOLO("best.pt")
+    st.success("Model Loaded Successfully")
+
+except Exception as e:
+    st.error(str(e))
