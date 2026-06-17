@@ -5,7 +5,22 @@ import numpy as np
 from PIL import Image
 
 model = YOLO("best.pt")
+def cleaning_frequency(load_percent):
 
+    if load_percent < 5:
+        return "Weekly Cleaning", "Low"
+
+    elif load_percent < 15:
+        return "Twice a Week", "Moderate"
+
+    elif load_percent < 30:
+        return "Every Alternate Day", "Medium"
+
+    elif load_percent < 50:
+        return "Daily Cleaning", "High"
+
+    else:
+        return "Immediate Cleaning Required", "Critical"
 uploaded_file = st.file_uploader(
     "Upload Intake Image",
     type=["jpg","jpeg","png"]
