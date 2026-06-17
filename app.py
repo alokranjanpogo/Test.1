@@ -1,26 +1,8 @@
 import streamlit as st
-from ultralytics import YOLO
-from PIL import Image
-import numpy as np
+import os
 
-model = YOLO("best.pt")
+st.write("Files in directory:")
+st.write(os.listdir("."))
 
-uploaded = st.file_uploader(
-    "Upload Image",
-    type=["jpg", "jpeg", "png"]
-)
-
-if uploaded:
-    image = Image.open(uploaded)
-    img = np.array(image)
-
-    results = model.predict(
-        img,
-        conf=0.25,
-        verbose=False
-    )
-
-    st.image(
-        results[0].plot(),
-        caption="Prediction"
-    )
+st.write("best.pt exists:")
+st.write(os.path.exists("best.pt"))
