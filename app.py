@@ -1,4 +1,10 @@
-import cv2
 import streamlit as st
+import cv2
+from ultralytics import YOLO
 
-st.write(cv2._version_)
+st.success("OpenCV Loaded")
+st.success(f"OpenCV Version: {cv2.__version__}")
+
+model = YOLO("yolov8n.pt")
+
+st.success("YOLO Loaded Successfully")
