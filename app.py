@@ -1,11 +1,14 @@
 import streamlit as st
 from ultralytics import YOLO
 
-st.write("Before loading")
+model = YOLO("best.pt")
 
-try:
-    model = YOLO("best.pt")
-    st.success("Model Loaded Successfully")
+st.success("Model Loaded")
 
-except Exception as e:
-    st.error(str(e))
+results = model.predict(
+    "https://ultralytics.com/images/bus.jpg",
+    verbose=False
+)
+
+st.write(results)
+st.success("Prediction Completed")
