@@ -18,7 +18,7 @@ if uploaded:
     )
 
     for r in results:
-    st.write("Masks:", r.masks is not None)
-
-    if r.masks is not None:
-        st.write("Number of masks:", len(r.masks.data))
+        st.write("Masks:", r.masks is not None)
+    
+        if r.masks is not None:
+            st.write("Number of masks:", len(r.masks.data))
