@@ -1,14 +1,20 @@
 import streamlit as st
 from ultralytics import YOLO
+from PIL import Image
+import numpy as np
 
 model = YOLO("best.pt")
 
-st.success("Model Loaded")
+uploaded = st.file_uploader("Upload")
 
-results = model.predict(
-    "https://ultralytics.com/images/bus.jpg",
-    verbose=False
-)
+if uploaded:
+    img = Image.open(uploaded)
+    frame = np.array(img)
 
-st.write(results)
-st.success("Prediction Completed")
+    results = model.predict(
+        frame,
+        conf=0.25,
+        verbose=False
+    )
+
+    st.write(results)
