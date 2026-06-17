@@ -1,10 +1,26 @@
 import streamlit as st
-import cv2
 from ultralytics import YOLO
-
-st.success("OpenCV Loaded")
-st.success(f"OpenCV Version: {cv2.__version__}")
+from PIL import Image
+import numpy as np
 
 model = YOLO("best.pt")
 
-st.success("YOLO Loaded Successfully")
+uploaded = st.file_uploader(
+    "Upload Image",
+    type=["jpg", "jpeg", "png"]
+)
+
+if uploaded:
+    image = Image.open(uploaded)
+    img = np.array(image)
+
+    results = model.predict(
+        img,
+        conf=0.25,
+        verbose=False
+    )
+
+    st.image(
+        results[0].plot(),
+        caption="Prediction"
+    )
