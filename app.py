@@ -1,15 +1,21 @@
-import streamlit as st
 from ultralytics import YOLO
-from PIL import Image
+import streamlit as st
+import cv2
 import numpy as np
+from PIL import Image
 
 model = YOLO("best.pt")
 
-uploaded = st.file_uploader("Upload")
+uploaded_file = st.file_uploader(
+    "Upload Intake Image",
+    type=["jpg","jpeg","png"]
+)
 
-if uploaded:
-    img = Image.open(uploaded)
-    frame = np.array(img)
+if uploaded_file:
+
+    image = Image.open(uploaded_file)
+
+    frame = np.array(image)
 
     results = model.predict(
         frame,
@@ -17,6 +23,9 @@ if uploaded:
         verbose=False
     )
 
-    for r in results:
-        plotted = r.plot()
-        st.image(plotted)
+    plotted = results[0].plot()
+
+    st.image(
+        plotted,
+        caption="YOLO Result"
+    )
